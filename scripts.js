@@ -25,21 +25,14 @@ class Book {
 }
 
 import { books as bookData, authors as authorData, genres as genreData, BOOKS_PER_PAGE } from './data.js';
-
-import {
-    data,
-    bookListFragment,
-    genreFragment,
-    authorFragment,
-    searchResultFragment
-  } from "./element.js";
+import { data, bookListFragment, genreFragment, authorFragment, searchResultFragment } from "./element.js";
 
 const authors = Object.entries(authorData).map(([id, name]) => new Author(id, name));
 const genres = Object.entries(genreData).map(([id, name]) => new Genre(id, name));
 const books = bookData.map(book => new Book(book));
 
 let page = 1;
-let matches = books
+let matches = books;
 
 
 function createBookPreview({ author, id, image, title }) {
@@ -47,19 +40,13 @@ function createBookPreview({ author, id, image, title }) {
     element.classList = 'preview';
     element.setAttribute('data-preview', id);
 
-    let authorName;
-    if (typeof author === 'object') {
-        authorName = author.name;
-    } else {
-        const authorObj = authors.find(a => a.id === author);
-        authorName = authorObj ? authorObj.name : 'Unknown Author';
-    }
+    const authorName = authors.find(a => a.id === author).name;
 
     element.innerHTML = `
         <img class="preview__image" src="${image}" />
         <div class="preview__info">
             <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
+            <div class="preview__author">${authorName}</div>
         </div>
     `;
 
@@ -79,10 +66,10 @@ function genresOptions() {
     firstGenreElement.innerText = 'All Genres';
     genreFragment.appendChild(firstGenreElement);
 
-    for (const [id, name] of Object.entries(genres)) {
+    for (const genre of genres) {
         const element = document.createElement('option');
-        element.value = id;
-        element.innerText = name;
+        element.value = genre.id;
+        element.innerText = genre.name;
         genreFragment.appendChild(element);
     }
 
@@ -95,10 +82,10 @@ function authorsOptions() {
     firstAuthorElement.innerText = 'All Authors';
     authorFragment.appendChild(firstAuthorElement);
 
-    for (const [id, name] of Object.entries(authors)) {
+    for (const author of authors) {
         const element = document.createElement('option');
-        element.value = id;
-        element.innerText = name;
+        element.value = author.id;
+        element.innerText = author.name;
         authorFragment.appendChild(element);
     }
 
@@ -250,7 +237,7 @@ function bookClick(event) {
         data.list.blur.src = active.image;
         data.list.image.src = active.image;
         data.list.title.innerText = active.title;
-        data.list.subtitle.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+        data.list.subtitle.innerText = `${authors.find(a => a.id === active.author).name} (${new Date(active.published).getFullYear()})`;
         data.list.description.innerText = active.description;
     }
 }
