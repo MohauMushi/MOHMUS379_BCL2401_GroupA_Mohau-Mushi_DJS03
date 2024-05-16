@@ -24,7 +24,7 @@ class Book {
     }
 }
 
-import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
+import { books as bookData, authors as authorData, genres as genreData, BOOKS_PER_PAGE } from './data.js';
 
 import {
     data,
@@ -34,9 +34,9 @@ import {
     searchResultFragment
   } from "./element.js";
 
-const authors = Object.entries(authors).map(([id, name]) => new Author(id, name));
-const genres = Object.entries(genres).map(([id, name]) => new Genre(id, name));
-const books = books.map(book => new Book(book));
+const authors = Object.entries(authorData).map(([id, name]) => new Author(id, name));
+const genres = Object.entries(genreData).map(([id, name]) => new Genre(id, name));
+const books = bookData.map(book => new Book(book));
 
 let page = 1;
 let matches = books
