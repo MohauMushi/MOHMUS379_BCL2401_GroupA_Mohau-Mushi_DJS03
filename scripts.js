@@ -78,49 +78,58 @@ function setupTheme() {
     }
 }
 
-data.list.button.innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
-data.list.button.disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0
+function showMoreButton() {
+    const remainingBooks = matches.length - (page * BOOKS_PER_PAGE);
+    data.list.button.innerText = `Show more (${remainingBooks > 0 ? remainingBooks : 0})`;
+    data.list.button.disabled = remainingBooks <= 0;
 
-data.list.button.innerHTML = `
-    <span>Show more</span>
-    <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
-`
-data.search.cancel.addEventListener('click', () => {
-    data.search.overlay.open = false
-})
+    data.list.button.innerHTML = `
+        <span>Show more</span>
+        <span class="list__remaining"> (${remainingBooks > 0 ? remainingBooks : 0})</span>
+    `;
+}
 
-data.settings.cancel.addEventListener('click', () => {
-    data.settings.overlay.open = false
-})
+function setupEventListeners() {
+    data.search.cancel.addEventListener('click', () => {
+        data.search.overlay.open = false;
+    });
 
-data.header.search.addEventListener('click', () => {
-    data.search.overlay.open = true 
-    data.search.title.focus()
-})
+    data.settings.cancel.addEventListener('click', () => {
+        data.settings.overlay.open = false;
+    });
 
-data.header.settings.addEventListener('click', () => {
-    data.settings.overlay.open = true 
-})
+    data.header.search.addEventListener('click', () => {
+        data.search.overlay.open = true;
+        data.search.title.focus();
+    });
 
-data.list.close.addEventListener('click', () => {
-    data.list.active.open = false
-})
+    data.header.settings.addEventListener('click', () => {
+        data.settings.overlay.open = true;
+    });
 
-data.settings.form.addEventListener('submit', (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
-    const { theme } = Object.fromEntries(formData)
+    data.list.close.addEventListener('click', () => {
+        data.list.active.open = false;
+    });
 
-    if (theme === 'night') {
-        document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
-        document.documentElement.style.setProperty('--color-light', '10, 10, 20');
-    } else {
-        document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
-        document.documentElement.style.setProperty('--color-light', '255, 255, 255');
-    }
-    
-    data.settings.overlay.open = false
-})
+    data.settings.form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const { theme } = Object.fromEntries(formData);
+
+        if (theme === 'night') {
+            document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
+            document.documentElement.style.setProperty('--color-light', '10, 10, 20');
+        } else {
+            document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
+            document.documentElement.style.setProperty('--color-light', '255, 255, 255');
+        }
+
+        data.settings.overlay.open = false;
+    });
+
+    data.list.button.addEventListener('click', handleShowMore);
+    data.list.items.addEventListener('click', handleBookClick);
+}
 
 data.search.form.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -254,5 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
     genresOptions();
     authorsOptions();
     setupTheme();
+    showMoreButton();
+    setupEventListeners();
   }
   
