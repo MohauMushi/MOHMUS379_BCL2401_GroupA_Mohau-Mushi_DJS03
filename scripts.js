@@ -34,33 +34,37 @@ function renderBookList(books, fragment) {
     data.list.items.appendChild(fragment);
 }
 
-const firstGenreElement = document.createElement('option')
-firstGenreElement.value = 'any'
-firstGenreElement.innerText = 'All Genres'
-genreFragment.appendChild(firstGenreElement)
+function genresOptions() {
+    const firstGenreElement = document.createElement('option');
+    firstGenreElement.value = 'any';
+    firstGenreElement.innerText = 'All Genres';
+    genreFragment.appendChild(firstGenreElement);
 
-for (const [id, name] of Object.entries(genres)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    genreFragment.appendChild(element)
+    for (const [id, name] of Object.entries(genres)) {
+        const element = document.createElement('option');
+        element.value = id;
+        element.innerText = name;
+        genreFragment.appendChild(element);
+    }
+
+    data.search.genres.appendChild(genreFragment);
 }
 
-data.search.genres.appendChild(genreFragment)
+function authorsOptions() {
+    const firstAuthorElement = document.createElement('option');
+    firstAuthorElement.value = 'any';
+    firstAuthorElement.innerText = 'All Authors';
+    authorFragment.appendChild(firstAuthorElement);
 
-const firstAuthorElement = document.createElement('option')
-firstAuthorElement.value = 'any'
-firstAuthorElement.innerText = 'All Authors'
-authorFragment.appendChild(firstAuthorElement)
+    for (const [id, name] of Object.entries(authors)) {
+        const element = document.createElement('option');
+        element.value = id;
+        element.innerText = name;
+        authorFragment.appendChild(element);
+    }
 
-for (const [id, name] of Object.entries(authors)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    authorFragment.appendChild(element)
+    data.search.authors.appendChild(authorFragment);
 }
-
-data.search.authors.appendChild(authorFragment)
 
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.querySelector('[data-settings-theme]').value = 'night'
@@ -245,5 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   function init() {
     renderBookList(matches, bookListFragment);
+    genresOptions();
+    authorsOptions();
   }
   
