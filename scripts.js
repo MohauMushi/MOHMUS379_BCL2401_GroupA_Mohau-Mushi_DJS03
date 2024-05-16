@@ -34,6 +34,12 @@ import {
     searchResultFragment
   } from "./element.js";
 
+
+const authors = Object.entries(authorData).map(([id, name]) => new Author(id, name));
+const genres = Object.entries(genreData).map(([id, name]) => new Genre(id, name));
+const books = bookData.map(book => new Book(book));
+
+
 let page = 1;
 let matches = books
 
