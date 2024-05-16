@@ -183,7 +183,7 @@ function handleShowMore() {
 
     data.list.items.appendChild(fragment);
     page += 1;
-    
+    showMoreButton();
 }
 
 data.list.items.addEventListener('click', (event) => {
