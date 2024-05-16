@@ -1,3 +1,29 @@
+class Author {
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+class Genre {
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+class Book {
+    constructor({ id, title, author, image, genres, published, description }) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.image = image;
+        this.genres = genres;
+        this.published = published;
+        this.description = description;
+    }
+}
+
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
 import {
