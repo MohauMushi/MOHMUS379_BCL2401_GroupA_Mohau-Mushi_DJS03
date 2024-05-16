@@ -1,5 +1,12 @@
-// Created an object literal that holds all of our DOM element references
+/**
+ * An object literal that holds all the DOM element references for the application.
+ * Each property of the object represents a section or component of the application,
+ * and its value is an object containing references to the corresponding DOM elements.
+ */
 export const data = {
+  /**
+   * Object containing references to DOM elements related to the book list.
+   */
   list: {
     items: document.querySelector("[data-list-items]"),
     button: document.querySelector("[data-list-button]"),
@@ -12,6 +19,9 @@ export const data = {
     subtitle: document.querySelector("[data-list-subtitle]"),
     description: document.querySelector("[data-list-description]"),
   },
+  /**
+   * Object containing references to DOM elements related to the search functionality.
+   */
   search: {
     overlay: document.querySelector("[data-search-overlay]"),
     form: document.querySelector("[data-search-form]"),
@@ -20,12 +30,18 @@ export const data = {
     genres: document.querySelector("[data-search-genres]"),
     authors: document.querySelector("[data-search-authors]"),
   },
+  /**
+   * Object containing references to DOM elements related to the settings functionality.
+   */
   settings: {
     overlay: document.querySelector("[data-settings-overlay]"),
     form: document.querySelector("[data-settings-form]"),
     cancel: document.querySelector("[data-settings-cancel]"),
     theme: document.querySelector("[data-settings-theme]"),
   },
+  /**
+   * Object containing references to DOM elements in the header.
+   */
   header: {
     search: document.querySelector("[data-header-search]"),
     settings: document.querySelector("[data-header-settings]"),
@@ -39,8 +55,22 @@ export const data = {
   },
 };
 
-//   Created a document fragment, which will be accessible throughout the file
+/**
+ * A document fragment that will be used to hold the search results.
+ */
 export const searchResultFragment = document.createDocumentFragment();
+
+/**
+ * A document fragment that will be used to hold the initial book list.
+ */
 export const bookListFragment = document.createDocumentFragment();
+
+/**
+ * A document fragment that will be used to hold the genre options.
+ */
 export const genreFragment = document.createDocumentFragment();
+
+/**
+ * A document fragment that will be used to hold the author options.
+ */
 export const authorFragment = document.createDocumentFragment();
