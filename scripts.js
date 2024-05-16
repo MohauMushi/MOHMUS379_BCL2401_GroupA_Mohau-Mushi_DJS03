@@ -168,6 +168,7 @@ function handlingSearchSubmit(event) {
     const newItems = document.createDocumentFragment();
     renderBookList(result, newItems);
 
+    showMoreButton();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     data.search.overlay.open = false;
 }
