@@ -5,6 +5,7 @@ import {
     bookListFragment,
     genreFragment,
     authorFragment,
+    searchResultFragment
   } from "./element.js";
 
 let page = 1;
@@ -165,8 +166,7 @@ function handlingSearchSubmit(event) {
     }
 
     data.list.items.innerHTML = '';
-    const newItems = document.createDocumentFragment();
-    renderBookList(result, newItems);
+    renderBookList(result, searchResultFragment);
 
     showMoreButton();
     window.scrollTo({ top: 0, behavior: 'smooth' });
