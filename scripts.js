@@ -66,14 +66,16 @@ function authorsOptions() {
     data.search.authors.appendChild(authorFragment);
 }
 
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.querySelector('[data-settings-theme]').value = 'night'
-    document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
-    document.documentElement.style.setProperty('--color-light', '10, 10, 20');
-} else {
-    document.querySelector('[data-settings-theme]').value = 'day'
-    document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
-    document.documentElement.style.setProperty('--color-light', '255, 255, 255');
+function setupTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector('[data-settings-theme]').value = 'night';
+        document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
+        document.documentElement.style.setProperty('--color-light', '10, 10, 20');
+    } else {
+        document.querySelector('[data-settings-theme]').value = 'day';
+        document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
+        document.documentElement.style.setProperty('--color-light', '255, 255, 255');
+    }
 }
 
 data.list.button.innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
@@ -251,5 +253,6 @@ document.addEventListener("DOMContentLoaded", function () {
     renderBookList(matches, bookListFragment);
     genresOptions();
     authorsOptions();
+    setupTheme();
   }
   
