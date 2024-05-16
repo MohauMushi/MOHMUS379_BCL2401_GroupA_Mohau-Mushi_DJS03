@@ -34,9 +34,11 @@ import {
     searchResultFragment
   } from "./element.js";
 
-const authors = Object.entries(authors).map(([id, name]) => new Author(id, name));
-const genres = Object.entries(genres).map(([id, name]) => new Genre(id, name));
-const books = books.map(book => new Book(book));
+
+const authors = Object.entries(authorData).map(([id, name]) => new Author(id, name));
+const genres = Object.entries(genreData).map(([id, name]) => new Genre(id, name));
+const books = bookData.map(book => new Book(book));
+
 
 let page = 1;
 let matches = books
@@ -46,14 +48,6 @@ function createBookPreview({ author, id, image, title }) {
     const element = document.createElement('button');
     element.classList = 'preview';
     element.setAttribute('data-preview', id);
-
-    let authorName;
-    if (typeof author === 'object') {
-        authorName = author.name;
-    } else {
-        const authorObj = authors.find(a => a.id === author);
-        authorName = authorObj ? authorObj.name : 'Unknown Author';
-    }
 
     element.innerHTML = `
         <img class="preview__image" src="${image}" />
@@ -250,7 +244,7 @@ function bookClick(event) {
         data.list.blur.src = active.image;
         data.list.image.src = active.image;
         data.list.title.innerText = active.title;
-        data.list.subtitle.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+        data.list.subtitle.innerText = ` (${new Date(active.published).getFullYear()})`;
         data.list.description.innerText = active.description;
     }
 }
