@@ -1,30 +1,7 @@
-class Author {
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-}
-
-class Genre {
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-}
-
-class Book {
-    constructor({ id, title, author, image, genres, published, description }) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.image = image;
-        this.genres = genres;
-        this.published = published;
-        this.description = description;
-    }
-}
-
 import { books as bookData, authors as authorData, genres as genreData, BOOKS_PER_PAGE } from './data.js';
+
+import { Author, Genre, Book } from './objects.js';
+
 import { data, bookListFragment, genreFragment, authorFragment, searchResultFragment } from "./element.js";
 
 const authors = Object.entries(authorData).map(([id, name]) => new Author(id, name));
