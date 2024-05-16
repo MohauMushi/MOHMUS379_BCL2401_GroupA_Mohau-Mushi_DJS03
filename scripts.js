@@ -11,27 +11,28 @@ let page = 1;
 let matches = books
 
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
-    const element = document.createElement('button')
-    element.classList = 'preview'
-    element.setAttribute('data-preview', id)
+function createBookPreview({ author, id, image, title }) {
+    const element = document.createElement('button');
+    element.classList = 'preview';
+    element.setAttribute('data-preview', id);
 
     element.innerHTML = `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
+        <img class="preview__image" src="${image}" />
         <div class="preview__info">
             <h3 class="preview__title">${title}</h3>
             <div class="preview__author">${authors[author]}</div>
         </div>
-    `
+    `;
 
-    bookListFragment.appendChild(element)
+    return element;
 }
 
-data.list.items.appendChild(bookListFragment)
+function renderBookList(books, fragment) {
+    for (const book of books.slice(0, BOOKS_PER_PAGE)) {
+        fragment.appendChild(createBookPreview(book));
+    }
+    data.list.items.appendChild(fragment);
+}
 
 const firstGenreElement = document.createElement('option')
 firstGenreElement.value = 'any'
@@ -237,3 +238,12 @@ data.list.items.addEventListener('click', (event) => {
         data.list.description.innerText = active.description
     }
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+    init(); // init is called after the DOM is fully loaded
+  });
+  
+  function init() {
+    renderBookList(matches, bookListFragment);
+  }
+  
