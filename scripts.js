@@ -130,6 +130,7 @@ function setupEventListeners() {
 
     data.search.form.addEventListener('submit', handlingSearchSubmit);
     data.list.button.addEventListener('click', handleShowMore);
+    data.list.items.addEventListener('click', bookClick);
 }
 
 function handlingSearchSubmit(event) {
@@ -186,34 +187,35 @@ function handleShowMore() {
     showMoreButton();
 }
 
-data.list.items.addEventListener('click', (event) => {
-    const pathArray = Array.from(event.path || event.composedPath())
-    let active = null
+
+function bookClick(event) {
+    const pathArray = Array.from(event.path || event.composedPath());
+    let active = null;
 
     for (const node of pathArray) {
-        if (active) break
+        if (active) break;
 
         if (node?.dataset?.preview) {
-            let result = null
-    
+            let result = null;
+
             for (const singleBook of books) {
                 if (result) break;
-                if (singleBook.id === node?.dataset?.preview) result = singleBook
-            } 
-        
-            active = result
+                if (singleBook.id === node?.dataset?.preview) result = singleBook;
+            }
+
+            active = result;
         }
     }
-    
+
     if (active) {
-        data.list.active.open = true
-        data.list.blur.src = active.image
-        data.list.image.src = active.image
-        data.list.title.innerText = active.title
-        data.list.subtitle.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
-        data.list.description.innerText = active.description
+        data.list.active.open = true;
+        data.list.blur.src = active.image;
+        data.list.image.src = active.image;
+        data.list.title.innerText = active.title;
+        data.list.subtitle.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+        data.list.description.innerText = active.description;
     }
-})
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     init(); // init is called after the DOM is fully loaded
